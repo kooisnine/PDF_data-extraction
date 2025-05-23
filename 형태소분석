@@ -1,0 +1,30 @@
+pip install kss
+!pip install konlpy
+
+import kss
+
+for i, doc in enumerate(pages, start=1):
+    text = doc.page_content  # Document에서 순수 텍스트만 추출
+    morphs = okt.morphs(text)  # 문자열
+    print(f"--- Page {i} Okt 형태소 분석 ---")
+    print(morphs)
+
+
+#방법 2
+all_text = "\n".join(doc.page_content for doc in pages)
+print("=== 전체 PDF Okt 형태소 분석 ===")
+
+
+
+from konlpy.tag import Okt
+from konlpy.tag import Kkma
+
+okt = Okt()
+kkma = Kkma()
+
+#방법 2
+print(okt.morphs(all_text))
+
+print('OKT 형태소 분석 :',okt.morphs("안녕하세요, 성균관대학교 소프트웨어학과에 재학중인 홍길동입니다."))
+print('OKT 품사 태깅 :',okt.pos("안녕하세요, 성균관대학교 소프트웨어학과에 재학중인 홍길동입니다."))
+print('OKT 명사 추출 :',okt.nouns("안녕하세요, 성균관대학교 소프트웨어학과에 재학중인 홍길동입니다."))
