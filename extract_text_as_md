@@ -1,0 +1,25 @@
+pip install pypdf
+
+
+from pathlib import Path
+import PyPDF2
+
+pdf_path = Path("./sample_data/os_Project 4_25.pdf")
+
+base_name = pdf_path.stem  # "os_Project 4_25"라는, 확장자를 제외한 stem 파일 이름만을 불러옴
+
+# stem + .md로 파일 이름 설정
+output_md = base_name + ".md"  # "os_Project 4_25.md"
+
+# 4) PDF → Markdown 변환
+with pdf_path.open("rb") as pdf_file:
+    reader = PyPDF2.PdfReader(pdf_file)
+    with open(output_md, "w", encoding="utf-8") as md:
+        for i, page in enumerate(reader.pages, start=1):
+            text = page.extract_text() or ""
+            md.write(f"# Page {i}\n\n")
+            md.write(text.strip())
+            md.write("\n\n-----\n\n") #가독성 up
+
+print(f"{output_md}저장을 완료했습니다.\n")
+
