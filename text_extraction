@@ -1,0 +1,10 @@
+!pip install -q pypdf
+!pip install langchain-community
+
+from langchain.document_loaders import PyPDFLoader
+loader = PyPDFLoader("./sample_data/pdf 데이터 추출 연구 (1).pdf") #path 입력으로 데이터 추출 target
+pages = loader.load()
+
+len(pages)
+
+pages[0:-1] #전체 page 출력
